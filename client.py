@@ -26,6 +26,8 @@ def client():
         c.sendall(bytes(data,'utf-8'))
         print(f"Server response: {c.recv(1024).decode('utf-8')}")
 
+        #include bonus features such as receiving message receipts 
+
 
 if __name__ == "__main__":
     client()
