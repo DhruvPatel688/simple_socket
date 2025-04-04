@@ -3,7 +3,7 @@
 import socket
 import threading
 import os
-
+import uuid
 
 list_of_clients = []
 
@@ -16,8 +16,8 @@ def accept_clients(c, addr):
         data = c.recv(1024).decode('utf-8')
         print("Received Message: ", data, " from", addr)
         #Still need to add 'exit' conditional for client to exit server.
-        
-        receipt = 'Received message ' + data + ' from '+ str(addr[1])
+
+        receipt = 'Received message ' + data + ' from '+ addr
         broadcast(bytes(receipt,'utf-8'), c)
     c.close()
 
@@ -47,12 +47,15 @@ def server():
     while True:
         c, addr = s.accept()
         #still need to add unique ID:
-
-
+        unique_id = str(uuid.uuid4())
         list_of_clients.append(c)
-        print("Connected with", addr)
+        #for client in list_of_clients:
+        #    for c in list_of_clients:
+        #        if client != c:
+        #            client.send(bytes(str(c),'utf-8'))
+        print("Connected with", unique_id)
         #call accept_client function to properly handle the data
-        client_handler = threading.Thread(target=accept_clients, args=(c, addr))
+        client_handler = threading.Thread(target=accept_clients, args=(c, unique_id))
         client_handler.start()
 
 if __name__ == "__main__":
