@@ -39,7 +39,7 @@ def server():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     host = '127.0.0.1'
-    port = 12345
+    port = 8001
     s.bind((host, port))
     s.listen(5)
     print(f"Server listening on {host}:{port}")
