@@ -38,7 +38,7 @@ def client():
         #give the client the ability to send a message to the server
             c.sendall(bytes(data,'utf-8'))
 
-        #include bonus features such as receiving message receipts 
+        #include bonus features such as receiving message receipts
 
 
 if __name__ == "__main__":
