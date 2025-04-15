@@ -20,10 +20,10 @@ def accept_clients(c, addr):
             break
 
         print("Received Message: ", data, " from", addr)
-        #Still need to add 'exit' conditional for client to exit server.
-        
-        receipt = '\nReceived message \'' + data + '\' from '+ addr
-        broadcast(bytes(receipt,'utf-8'), c)
+        receipt = 'ACK'
+        c.send(bytes(receipt, 'utf-8'))
+        message = '\nReceived message \'' + data + '\' from '+ addr
+        broadcast(bytes(message,'utf-8'), c)
     c.close()
 
 #used to broadcast message to all clients
@@ -56,7 +56,7 @@ def server():
         unique_id = str(uuid.uuid4())
         #list_of_clients.append(c)
         list_of_clients[c] = unique_id
-        for key,value in list_of_clients.items():
+        for key,value in list(list_of_clients.items()):
             message = f"\nOther client connected is {value}"
             broadcast(bytes(message,'utf-8'), key)
         #for client in list_of_clients:

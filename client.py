@@ -2,13 +2,20 @@
 #import socket and other libraries
 import socket
 import threading
+import time
 
 
 def receive(c):
     while True:
+        
         try:
             message = c.recv(1024).decode('utf-8')
-            print(message)
+            if message == 'ACK':
+                print('\nReceipt ACK: Message Received by Server.')
+            else:
+                print(message)
+        except OSError:
+            break
         except Exception as e:
             break
 
@@ -38,8 +45,6 @@ def client():
         #give the client the ability to send a message to the server
             c.sendall(bytes(data,'utf-8'))
 
-        #include bonus features such as receiving message receipts
-
-
+            
 if __name__ == "__main__":
     client()
