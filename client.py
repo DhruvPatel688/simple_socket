@@ -3,7 +3,7 @@
 import socket
 import threading
 import time
-
+import sys
 
 def receive(c):
     while True:
@@ -13,7 +13,7 @@ def receive(c):
             if message == 'ACK':
                 print('\nReceipt ACK: Message Received by Server.')
             else:
-                print(message)
+                sys.stdout.write(message + '\nEnter Message: ')
         except OSError:
             break
         except Exception as e:
@@ -36,7 +36,8 @@ def client():
     #need a loop to receive messages and process the data better
     #to continue client and server interaction until exit
     while True:
-        data = input('Enter your message: ')
+        
+        data = str(input())
         if data == '.exit':
             print('Exiting')
             c.close()

@@ -15,8 +15,11 @@ def accept_clients(c, addr):
         
         data = c.recv(1024).decode('utf-8')
         if not data:
-            message = addr + ' has disconnected.'
+            message = '\n'+ addr + ' has disconnected.'
+            print(message)
             broadcast(bytes(message,'utf-8'), c)
+            if c in list_of_clients:
+                del list_of_clients[c]
             break
 
         print("Received Message: ", data, " from", addr)
@@ -35,7 +38,8 @@ def broadcast(message, connection):
             except: 
                 clients.close() 
  
-                # if the link is broken, we remove the client 
+                # if the link is broken, we remove the client
+              
                 del list_of_clients[clients]
 
 #this is the main server function that connects to clients
